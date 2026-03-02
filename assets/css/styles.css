@@ -1,0 +1,16 @@
+/* Estilos adicionales personalizados */
+body {
+    background-color: #f8f9fa;
+}
+
+canvas {
+    background-color: #ffffff;
+    border: 2px solid #dee2e6;
+    max-width: 100%; /* Para que sea responsivo */
+}
+
+/* Efecto hover suave para las imágenes y canvas */
+canvas:hover, img:hover {
+    transform: scale(1.01);
+    transition: 0.3s ease-in-out;
+}
