@@ -15,7 +15,7 @@ Este proyecto es una aplicación web que utiliza la API Canvas 2D de HTML5 para 
 
 ## 📌 Enlaces
 * **Repositorio de GitHub:** https://github.com/AlessandroDLuna/ExamenCanvas
-* **Sitio Web (GitHub Pages):** [Inserta tu enlace de gh-pages aquí]
+* **Sitio Web (GitHub Pages):** https://AlessandroDLuna.github.io/ExamenCanvas/
 
 ## 👨‍💻 Autor
 * **Nombre:** Alejandro Godínez López
