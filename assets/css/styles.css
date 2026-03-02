@@ -1,16 +1,40 @@
-/* Estilos adicionales personalizados */
+/* Importar una fuente bonita de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 body {
-    background-color: #f8f9fa;
+    background-color: #f0f2f5 !important; /* Un gris muy clarito y elegante */
+    font-family: 'Poppins', sans-serif;
 }
 
-canvas {
+/* Estilo para el Canvas */
+.canvas-style {
     background-color: #ffffff;
-    border: 2px solid #dee2e6;
-    max-width: 100%; /* Para que sea responsivo */
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    max-width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efecto hover suave para las imágenes y canvas */
-canvas:hover, img:hover {
-    transform: scale(1.01);
-    transition: 0.3s ease-in-out;
+/* Estilo para la imagen original */
+.img-style {
+    border-radius: 10px;
+    max-height: 400px;
+    width: 500px;
+    object-fit: cover;
+    border: 2px solid #dee2e6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover interactivo */
+.canvas-style:hover, .img-style:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    border-color: #0d6efd;
+    cursor: pointer;
+}
+
+/* Ajustes del acordeón */
+.accordion-button:not(.collapsed) {
+    background-color: #0b5ed7 !important;
+    color: white !important;
 }
