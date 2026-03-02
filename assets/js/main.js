@@ -1,11 +1,12 @@
 /**
  * ============================================================================
  * EXAMEN TEMA 1: INTRODUCCIÓN A LA GRAFICACIÓN POR COMPUTADORA
- * Aplicación: Dibujo de paisaje usando Canvas 2D API
- * Autor: [Tu Nombre Completo]
+ * Aplicación: Dibujo de escena nocturna detallada usando Canvas 2D API
+ * Autor: Alessandro D. Luna
  * Fecha: [Fecha de hoy]
- * Descripción: Script que utiliza primitivas de Canvas (rectángulos, círculos, 
- * líneas y polígonos) para generar un paisaje con al menos 30 figuras básicas.
+ * Descripción: Script que utiliza primitivas de Canvas (principalmente círculos) 
+ * para generar una escena de luna detallada con cráteres y estrellas, 
+ * cumpliendo el requisito de al menos 30 figuras básicas.
  * ============================================================================
  */
 
@@ -14,128 +15,91 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctx = canvas.getContext("2d");
 
     // Función principal para organizar el dibujo
-    function dibujarPaisaje() {
-        dibujarFondoCieloYTierra(ctx); // 2 figuras (rectángulos)
-        dibujarSol(ctx);                // 9 figuras (1 círculo, 8 líneas)
-        dibujarNube(ctx, 100, 80);      // 4 figuras (círculos)
-        dibujarNube(ctx, 350, 120);     // 4 figuras (círculos)
-        dibujarCasa(ctx);               // 8 figuras (rectángulos, triángulo, círculo)
-        dibujarArbol(ctx);              // 6 figuras (1 rectángulo, 5 círculos)
-        dibujarCerca(ctx);              // 12 figuras (10 rectángulos verticales, 2 horizontales)
-        // Total aproximado: 45 figuras básicas generadas
+    function dibujarEscenaNocturna() {
+        dibujarCielo(ctx);                 // 1 figura (rectángulo)
+        dibujarEstrellas(ctx, 20);         // 20 figuras (círculos pequeños)
+        dibujarLunaYCrateres(ctx, 250, 200, 150); // 1 luna base + 24 figuras de cráteres (8 cráteres * 3 figuras cada uno)
+        // Total aproximado: 46 figuras básicas generadas
     }
 
-    function dibujarFondoCieloYTierra(ctx) {
-        // Cielo (Figura 1)
-        ctx.fillStyle = "#87CEEB"; 
+    function dibujarCielo(ctx) {
+        // Cielo nocturno - Degradado (Opcional, pero se ve mejor)
+        let degradado = ctx.createRadialGradient(250, 200, 10, 250, 200, 400);
+        degradado.addColorStop(0, "#191970"); // MidnightBlue
+        degradado.addColorStop(1, "#000033"); // Muy oscuro
+        
+        ctx.fillStyle = degradado; 
         ctx.fillRect(0, 0, 500, 400);
-
-        // Tierra / Pasto (Figura 2)
-        ctx.fillStyle = "#228B22";
-        ctx.fillRect(0, 300, 500, 100);
     }
 
-    function dibujarSol(ctx) {
-        // Círculo central (Figura 3)
-        ctx.fillStyle = "#FFD700";
-        ctx.beginPath();
-        ctx.arc(420, 60, 30, 0, Math.PI * 2);
-        ctx.fill();
+    function dibujarEstrellas(ctx, cantidad) {
+        ctx.fillStyle = "#FFFFFF"; // Blanco puro
+        for(let i = 0; i < cantidad; i++) {
+            let x = Math.random() * 500;
+            let y = Math.random() * 400;
+            let radio = Math.random() * 2; // Estrellas de diferentes tamaños
 
-        // Rayos del sol (Figuras 4 a 11)
-        ctx.strokeStyle = "#FFD700";
-        ctx.lineWidth = 3;
-        for (let i = 0; i < 8; i++) {
-            let angle = (i * Math.PI) / 4;
-            let x1 = 420 + Math.cos(angle) * 35;
-            let y1 = 60 + Math.sin(angle) * 35;
-            let x2 = 420 + Math.cos(angle) * 55;
-            let y2 = 60 + Math.sin(angle) * 55;
-            
             ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
+            ctx.arc(x, y, radio, 0, Math.PI * 2);
+            ctx.fill();
         }
     }
 
-    function dibujarNube(ctx, x, y) {
-        ctx.fillStyle = "#FFFFFF";
-        // 4 círculos por nube (Figuras 12-19 en total)
+    // Función compleja para la luna con cráteres
+    function dibujarLunaYCrateres(ctx, x, y, radio) {
+        
+        // 1. Base de la luna (círculo 1)
+        ctx.fillStyle = "#D3D3D3"; // LightGray
+        ctx.strokeStyle = "#C0C0C0"; // Silver para el borde
+        ctx.lineWidth = 4;
+        
         ctx.beginPath();
-        ctx.arc(x, y, 20, 0, Math.PI * 2);
-        ctx.arc(x + 20, y - 10, 25, 0, Math.PI * 2);
-        ctx.arc(x + 40, y, 20, 0, Math.PI * 2);
-        ctx.arc(x + 20, y + 10, 20, 0, Math.PI * 2);
+        ctx.arc(x, y, radio, 0, Math.PI * 2);
         ctx.fill();
-    }
+        ctx.stroke();
 
-    function dibujarCasa(ctx) {
-        // Base de la casa (Figura 20)
-        ctx.fillStyle = "#F5F5DC";
-        ctx.fillRect(50, 180, 140, 120);
-
-        // Techo - Triángulo (Figura 21)
-        ctx.fillStyle = "#A52A2A";
-        ctx.beginPath();
-        ctx.moveTo(30, 180);
-        ctx.lineTo(120, 100);
-        ctx.lineTo(210, 180);
-        ctx.fill();
-
-        // Puerta (Figura 22)
-        ctx.fillStyle = "#8B4513";
-        ctx.fillRect(100, 240, 40, 60);
-
-        // Perilla (Figura 23)
-        ctx.fillStyle = "#FFD700";
-        ctx.beginPath();
-        ctx.arc(132, 275, 4, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Ventana 1 (Figura 24 y 25 - fondo y marco)
-        ctx.fillStyle = "#87CEFA";
-        ctx.fillRect(60, 200, 30, 30);
-        ctx.strokeStyle = "#000";
-        ctx.lineWidth = 2;
-        ctx.strokeRect(60, 200, 30, 30);
-
-        // Ventana 2 (Figura 26 y 27 - fondo y marco)
-        ctx.fillRect(150, 200, 30, 30);
-        ctx.strokeRect(150, 200, 30, 30);
-    }
-
-    function dibujarArbol(ctx) {
-        // Tronco (Figura 28)
-        ctx.fillStyle = "#8B4513";
-        ctx.fillRect(350, 200, 30, 100);
-
-        // Hojas (Figuras 29 a 33)
-        ctx.fillStyle = "#006400";
-        let hojas = [
-            {x: 365, y: 150}, {x: 340, y: 170}, 
-            {x: 390, y: 170}, {x: 350, y: 200}, 
-            {x: 380, y: 200}
+        // 2. Generar cráteres (cada cráter es complejo)
+        // Definimos la posición y tamaño de los cráteres (son 8 cráteres)
+        const cratereData = [
+            {cx: x - 60, cy: y - 50, cr: 30},
+            {cx: x + 70, cy: y - 40, cr: 25},
+            {cx: x - 20, cy: y + 20, cr: 40},
+            {cx: x + 80, cy: y + 80, cr: 15},
+            {cx: x - 90, cy: y + 90, cr: 20},
+            {cx: x + 120, cy: y - 100, cr: 10},
+            {cx: x - 130, cy: y - 120, cr: 12},
+            {cx: x + 10, cy: y + 130, cr: 18}
         ];
 
-        hojas.forEach(h => {
+        // Función auxiliar para dibujar UN cráter completo (usa 3 figuras)
+        function dibujarCraterIndividual(ctx, cx, cy, cr) {
+            // Sombra del cráter (elipse exterior oscura - figura 1)
+            ctx.fillStyle = "rgba(100, 100, 100, 0.7)"; // Gris oscuro con transparencia
             ctx.beginPath();
-            ctx.arc(h.x, h.y, 30, 0, Math.PI * 2);
+            ctx.arc(cx, cy, cr, 0, Math.PI * 2);
             ctx.fill();
+
+            // Fondo del cráter (elipse central más oscura - figura 2)
+            ctx.fillStyle = "rgba(70, 70, 70, 0.8)";
+            ctx.beginPath();
+            ctx.arc(cx, cy, cr * 0.8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Borde de luz (elipse interior para dar relieve - figura 3)
+            ctx.strokeStyle = "rgba(200, 200, 200, 0.5)"; // Gris claro transparente
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            // Desplazamos un poco el borde de luz para dar efecto 3D
+            ctx.arc(cx - 2, cy - 2, cr * 0.7, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        // Iterar sobre los datos para dibujar los 8 cráteres (24 figuras en total)
+        cratereData.forEach(c => {
+            dibujarCraterIndividual(ctx, c.cx, c.cy, c.cr);
         });
     }
 
-    function dibujarCerca(ctx) {
-        ctx.fillStyle = "#D2B48C";
-        // 10 postes verticales (Figuras 34 a 43)
-        for(let i = 0; i < 10; i++) {
-            ctx.fillRect(220 + (i * 28), 260, 10, 50);
-        }
-        // 2 tablas horizontales (Figuras 44 y 45)
-        ctx.fillRect(215, 270, 280, 8);
-        ctx.fillRect(215, 290, 280, 8);
-    }
-
     // Ejecutar el dibujo
-    dibujarPaisaje();
+    dibujarEscenaNocturna();
 });
