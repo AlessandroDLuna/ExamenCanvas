@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función principal para organizar el dibujo
     function dibujarPaisaje() {
-        dibujarFondoCieloY Tierra(ctx); // 2 figuras (rectángulos)
+        dibujarFondoCieloYTierra(ctx); // 2 figuras (rectángulos)
         dibujarSol(ctx);                // 9 figuras (1 círculo, 8 líneas)
         dibujarNube(ctx, 100, 80);      // 4 figuras (círculos)
         dibujarNube(ctx, 350, 120);     // 4 figuras (círculos)
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Total aproximado: 45 figuras básicas generadas
     }
 
-    function dibujarFondoCieloY Tierra(ctx) {
+    function dibujarFondoCieloYTierra(ctx) {
         // Cielo (Figura 1)
         ctx.fillStyle = "#87CEEB"; 
         ctx.fillRect(0, 0, 500, 400);
